@@ -6,9 +6,10 @@ import com.github.xiaobenhai.keyword.matcher.KeywordMatcher;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Random;
 
 /**
- * Created by wjc133
+ * @author xiaobenhai
  * Date: 2016/12/29
  * Time: 16:01
  * 关键字匹配测试
@@ -19,8 +20,18 @@ public class KeywoadTest {
         List<String> words = Lists.newArrayList("hers", "his", "she", "he");
         Dict dict = new Dict();
         dict.setKeywords(words);
+        String text = "she";
+        KeywordMatcher service = KeywordMatcher.build(dict);
+        List<String> hits = service.match(text);
+        System.out.println(hits);
+    }
 
-        String text = "uhers";
+    @Test
+    public void testPerformance() {
+        List<String> words = Lists.newArrayList("hers", "his", "she", "he");
+        Dict dict = new Dict();
+        dict.setKeywords(words);
+        String text = words.get(new Random(words.size()).nextInt());
         KeywordMatcher service = KeywordMatcher.build(dict);
         List<String> hits = service.match(text);
         System.out.println(hits);
